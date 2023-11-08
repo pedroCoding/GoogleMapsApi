@@ -13,6 +13,7 @@ if($link === false){
     die("ERROR: Não foi possível conectar. " . mysqli_connect_error());
 }
 
+
 //TESTE
 
 ?>
