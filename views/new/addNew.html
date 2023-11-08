@@ -1,0 +1,100 @@
+<!-- Form for adding a new place -->
+<form id="NewPlaceForm" name="NewPlaceForm">
+    <div class="form-group">
+        <label for="titulo_lugar">Titulo*</label>
+        <input type="text" class="form-control" name="titulo" id="title" placeholder="" minlength="0" maxlength="60" required>
+    </div>
+    <div class="form-group">
+        <label for="titulo_descricao">Descrição</label>
+        <textarea class="form-control" name="description" id="descricao" rows="3" maxlength="1000"></textarea>
+    </div>
+    <div class="form-group">
+        <label for="titulo_cordenadas">Map coordinates*</label>
+        <div class="form-row">
+            <div class="col-6 col-lg-4">
+                <input type="number" class="form-control" name="lat" id="lat" placeholder="Latitude" min="0" max="256" required>
+            </div>
+            <div class="col-6 col-lg-4">
+                <input type="number" class="form-control" name="lng" id="lng" placeholder="Longtitude" min="0" max="256" required>
+            </div>
+            <div class="col-12 col-lg-4">
+                <a class="btn btn-primary btn-block" id="pickFromMapBtn" onclick="setPickingMode()">Escolher no mapa</a>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+    <label for="titulo_lugar">Horário de funcionamento*</label>
+        <div class="form-row">
+            <div class="col-12 col-lg-6">
+                <input type="time" class="form-control" name="hora_abertura" id="openinghour" value="09:00" required>
+            </div>
+            <div class="col-12 col-lg-6">
+                <input type="time" class="form-control" name="hora_fechamento" id="closinghour" value="15:00" required>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="place_tags">//TODO add tags, sorry I ran out of time</label>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <input class="btn btn-primary" type="button" id="submitNew" value="Save location">
+            <input class="btn btn-default" type="reset" value="Clear form">
+        </div>
+    </div>
+</form>
+
+<script>
+    // Options for our toaster
+    toastr.options = {
+        "closeButton": true,
+        "positionClass": "toast-top-full-width",
+        "showDuration": "300",
+        "hideDuration": "1000",
+        "timeOut": "5000",
+        "extendedTimeOut": "1000",
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn",
+        "hideMethod": "fadeOut"
+    }
+
+    // Submit NewPlaceForm to addNew.php for database insertion
+    $("#submitNew").click(function() {
+        var titulo = $("#titulo").val();
+        var descricao = $("#descricao").val();
+        var lat = $("#lat").val();
+        var lng = $("#lng").val();
+        var hora_abertura= $("#hora_abertura").val();
+        var hora_fechamento= $("#hora_fechamento").val();
+        if (titulo == '' || lat == '' || lng == '' || hora_abertura == '' || hora_fechamento == '') {
+            alert("Please fill all required fields");
+        } else {
+        // Returns successful data submission message when the entered information is stored in database.
+        $.post("views/new/addNew.php", {
+            titulo: titulo,
+            descricao: descricao,
+            lat: lat,
+            lng: lng,
+            hora_abertura: hora_abertura,
+            hora_fechamento: hora_fechamento
+        }, function(data) {
+            if (data == "200"){
+                // success
+                toastr.success('Local adicionado ' + titulo + ' na posição ' + lat + " , " + lng, '. Novo local salvo no banco de dados com sucesso');
+            } else {
+                // error
+                toastr.error('Error info: ' + data, 'ERRO ao salvar local no banco de dados :(');
+            }
+            // Reset form fields
+            $('#NewPlaceForm')[0].reset();
+            // Fetch markers and init map to refresh data
+            fetchMarkersFromDB();
+        });
+        }
+    });
+
+    $("#NewPlaceForm").submit(function(e){
+        return false;
+    });
+</script>
