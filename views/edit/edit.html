@@ -79,15 +79,15 @@
     });
 
     // Display editForm collapse and populate form
-    function openEditForm(id, title, description, openinghour, closinghour, lat, lng) {
+    function openEditForm(id, titulo, descricao, hora_abertura, hora_fechamento, lat, lng) {
         //Open collapse
         $('#editCollapse').collapse();
         //Insert values to form
         $("#idEdit").val(id);
-        $("#titleEdit").val(title);
-        $("#descriptionEdit").val(description);
-        $("#openinghourEdit").val(openinghour);
-        $("#closinghourEdit").val(closinghour);
+        $("#titleEdit").val(titulo);
+        $("#descriptionEdit").val(descricao);
+        $("#openinghourEdit").val(hora_abertura);
+        $("#closinghourEdit").val(hora_fechamento);
         $("#latEdit").val(lat);
         $("#lngEdit").val(lng);
     };
@@ -108,29 +108,28 @@
     // Submit editForm to editPlace.php for database update
     $("#submitEdit").click(function() {
         var id = $("#idEdit").val();
-        var title = $("#titleEdit").val();
-        var description = $("#descriptionEdit").val();
+        var titulo = $("#titleEdit").val();
+        var descricao = $("#descriptionEdit").val();
         var lat = $("#latEdit").val();
         var lng = $("#lngEdit").val();
-        var openinghour = $("#openinghourEdit").val();
-        var closinghour = $("#closinghourEdit").val();
-        if (id == '' || title == '' || lat == '' || lng == '' || openinghour == '' || closinghour == '') {
+        var hora_abertura = $("#openinghourEdit").val();
+        var hora_fechamento = $("#closinghourEdit").val();
+        if (id == '' || titulo == '' || lat == '' || lng == '' || hora_abertura == '' || hora_fechamento == '') {
             alert("Please fill all required fields");
         } else {
         // Returns successful data submission message when the entered information is stored in database.
         $.post("views/edit/editPlace.php", {
             id: id,
-            title: title,
-            description: description,
-            address: "",
+            titulo: titulo,
+            descricao: descricao,
             lat: lat,
             lng: lng,
-            openinghour: openinghour,
-            closinghour: closinghour
+            hora_abertura: hora_abertura,
+            hora_fechamento: hora_fechamento
         }, function(data) {
             if (data == "200"){
                 // success
-                toastr.success('Updated location ' + title + ' at position ' + lat + ' , ' + lng, 'Changes to place saved to database succesfully!');
+                toastr.success('Updated location ' + titulo + ' at position ' + lat + ' , ' + lng, 'Changes to place saved to database succesfully!');
             } else {
                 // error
                 toastr.error('Error info: ' + data, 'ERROR while saving changes to database :(');

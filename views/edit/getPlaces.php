@@ -1,7 +1,7 @@
 <?php
-require_once '../../config.php';
+require_once 'config.php';
 // Perform query
-$sql = "SELECT * FROM places ORDER BY id ASC";
+$sql = "SELECT * FROM mapa ORDER BY id ASC";
 if($result = mysqli_query($link, $sql)){
     if(mysqli_num_rows($result) > 0){
         // Print table
@@ -18,11 +18,11 @@ if($result = mysqli_query($link, $sql)){
             while($row = mysqli_fetch_array($result)){
                 echo "<tr class='d-flex'>";
                     echo "<td class='col-1'>" . $row['id'] . "</td>";
-                    echo "<td class='col-xs-6 col-sm-4 col-md-3 col-lg-3'>" . $row['title'] . "</td>";
-                    echo "<td class='d-none d-sm-block col-sm-4 col-md-5 col-lg-5 text-truncate'>" . $row['description'] . "</td>";
+                    echo "<td class='col-xs-6 col-sm-4 col-md-3 col-lg-3'>" . $row['titulo'] . "</td>";
+                    echo "<td class='d-none d-sm-block col-sm-4 col-md-5 col-lg-5 text-truncate'>" . $row['descricao'] . "</td>";
 
                     // Insert parameters for update function into a variable
-                    $parameters = $row['id'].",\"".$row['title']."\",\"".$row['description']."\",\"".$row['openinghour']."\",\"".$row['closinghour']."\",\"".$row['lat']."\",\"".$row['lng']."\"";
+                    $parameters = $row['id'].",\"".$row['titulo']."\",\"".$row['descricao']."\",\"".$row['hora_abertura']."\",\"".$row['hora_fechamento']."\",\"".$row['lat']."\",\"".$row['lng']."\"";
 
                     echo "<td class='col-xs-5 col-sm-3 col-md-3 col-lg-3 text-right'>
                             <button class='btn btn-link btn-sm' data-toggle='collapse' data-target='#infoRow".$row['id']."' aria-expanded='false' aria-controls='infoRow".$row['id']."'>
@@ -41,9 +41,9 @@ if($result = mysqli_query($link, $sql)){
                 echo "<td colspan='4'>
                         <div class='row'>
                             <div class='col-10'>
-                                <div class='col-12'><i class='far fa-clock mr-2' title='Open hours'></i><span>".$row['openinghour']." - ".$row['closinghour']."</span></div>
+                                <div class='col-12'><i class='far fa-clock mr-2' title='Open hours'></i><span>".$row['hora_abertura']." - ".$row['hora_fechamento']."</span></div>
                                 <div class='col-12'><i class='fas fa-map-marker-alt mr-2' title='coordinates'></i><span>".$row['lat']." , ".$row['lng']."</span></div>
-                                <div class='col-12 d-block d-sm-none'><i class='fas fa-book mr-2'></i><span>".$row['description']."</span></div>
+                                <div class='col-12 d-block d-sm-none'><i class='fas fa-book mr-2'></i><span>".$row['descricao']."</span></div>
                             </div>
                             <div class='col-2'>
                                 <button class='btn btn-light btn-sm mr-3 float-right v-center' data-toggle='collapse' data-target='#infoRow".$row['id']."' aria-expanded='false' aria-controls='infoRow".$row['id']."'>
@@ -56,7 +56,7 @@ if($result = mysqli_query($link, $sql)){
                 // Deletion confirmation promt row
                 echo "<tr class='table-warning text-center collapse' id='deletePromptRow".$row['id']."'>";
                 echo "<td colspan='4'>
-                        <span>Are you sure you want to delete ".$row['title']."?</span>
+                        <span>Are you sure you want to delete ".$row['titulo']."?</span>
                         <button class='btn btn-outline-danger btn-sm ml-2' onclick='deletePlace(".$row['id'].")'>
                             Delete
                         </button>
