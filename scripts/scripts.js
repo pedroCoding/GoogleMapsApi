@@ -13,10 +13,10 @@ var locationsFromDB = [];
 function loadAjax(page){
   switch (page) {
     case "new":
-    $("#addPlace").load("../places/views/new/addNew.html");
+    $("#addPlace").load("../GOOGLEMAPSAPI/views/new/addNew.html");
         break; 
     case "edit":
-    $("#listPlaces").load("../places/views/edit/edit.html");
+    $("#listPlaces").load("../GOOGLEMAPSAPI/views/edit/edit.html");
         break; 
     default: 
     // Do nothing basically
