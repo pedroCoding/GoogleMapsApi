@@ -1,5 +1,5 @@
 <?php
-require_once 'config.php';
+require_once '../../config.php';
 // Perform query
 $sql = "SELECT * FROM mapa ORDER BY id ASC";
 if($result = mysqli_query($link, $sql)){
