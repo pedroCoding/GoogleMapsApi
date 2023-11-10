@@ -9,12 +9,13 @@ if($result = mysqli_query($link, $sql)){
             echo "<thead class='thead-light'>";
                 echo "<tr class='d-flex'>";
                     echo "<th class='col-1'>#</th>";
-                    echo "<th class='col-xs-6 col-sm-4 col-md-3 col-lg-3'>Title</th>";
-                    echo "<th class='d-none d-sm-block col-sm-4 col-md-5 col-lg-5'>Description</th>";
-                    echo "<th class='col-xs-5 col-sm-3 col-md-3 col-lg-3 text-right' scope='col' class='text-right'><span class='mr-2'>Actions</span></th>";
+                    echo "<th class='col-xs-6 col-sm-4 col-md-3 col-lg-3'>Titulo</th>";
+                    echo "<th class='d-none d-sm-block col-sm-4 col-md-5 col-lg-5'>Descrição</th>";
+                    echo "<th class='col-xs-5 col-sm-3 col-md-3 col-lg-3 text-right' scope='col' class='text-right'><span class='mr-2'>Ação</span></th>";
                 echo "</tr>";
             echo "</thead>";
             echo "<tbody>";
+            
             while($row = mysqli_fetch_array($result)){
                 echo "<tr class='d-flex'>";
                     echo "<td class='col-1'>" . $row['id'] . "</td>";
@@ -24,7 +25,7 @@ if($result = mysqli_query($link, $sql)){
                     // Insert parameters for update function into a variable
                     $parameters = $row['id'].",\"".$row['titulo']."\",\"".$row['descricao']."\",\"".$row['hora_abertura']."\",\"".$row['hora_fechamento']."\",\"".$row['lat']."\",\"".$row['lng']."\"";
 
-                    echo "<td class='col-xs-5 col-sm-3 col-md-3 col-lg-3 text-right'>
+                    echo "<td class='col-xs-5 col-sm-3 col-md-3 col-lg-4 text-left'>
                             <button class='btn btn-link btn-sm' data-toggle='collapse' data-target='#infoRow".$row['id']."' aria-expanded='false' aria-controls='infoRow".$row['id']."'>
                                 <i class='fas fa-info-circle'></i>
                             </button> | 
@@ -56,7 +57,7 @@ if($result = mysqli_query($link, $sql)){
                 // Deletion confirmation promt row
                 echo "<tr class='table-warning text-center collapse' id='deletePromptRow".$row['id']."'>";
                 echo "<td colspan='4'>
-                        <span>Are you sure you want to delete ".$row['titulo']."?</span>
+                        <span>Deseja realmente excluir esse marcador : ".$row['titulo']."?</span>
                         <button class='btn btn-outline-danger btn-sm ml-2' onclick='deletePlace(".$row['id'].")'>
                             Delete
                         </button>
@@ -71,7 +72,7 @@ if($result = mysqli_query($link, $sql)){
         // Free result set
         mysqli_free_result($result);
     } else{
-        echo "<div class='alert alert-warning' role='alert'>No places were found in the database!</div>";
+        echo "<div class='alert alert-warning' role='alert'>Nenhum registro foi encontrado no banco de dados!</div>";
     }
 } else{
     echo "ERROR: Unable to execute $sql. " . mysqli_error($link);

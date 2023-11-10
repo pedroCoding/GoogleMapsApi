@@ -18,7 +18,7 @@
                 <input type="number" class="form-control" name="lng" id="lng" placeholder="Longtitude" min="0" max="256" required>
             </div>
             <div class="col-12 col-lg-4">
-                <a class="btn btn-primary btn-block" id="pickFromMapBtn" onclick="setPickingMode()">Escolher no mapa</a>
+                <a class="btn btn-primary btn-block" id="pickFromMapBtn" onclick="setPickingMode()">Pingue no Mapa</a>
             </div>
         </div>
     </div>
@@ -35,8 +35,8 @@
     </div>
     <div class="row">
         <div class="col-12">
-            <input class="btn btn-primary" type="button" id="submitNew" value="Save location">
-            <input class="btn btn-default" type="reset" value="Clear form">
+            <input class="btn btn-primary" type="button" id="submitNew" value="Salvar Localização">
+            <input class="btn btn-default" type="reset" value="Apagar formulario">
         </div>
     </div>
 </form>
@@ -65,7 +65,7 @@
         var hora_abertura= $("#hora_abertura").val();
         var hora_fechamento= $("#hora_fechamento").val();
         if (titulo == '' || lat == '' || lng == '' || hora_abertura == '' || hora_fechamento == '') {
-            alert("Please fill all required fields");
+            alert("Campos em branco. Preencha-os!");
         } else {
         // Returns successful data submission message when the entered information is stored in database.
         $.post("views/new/addNew.php", {

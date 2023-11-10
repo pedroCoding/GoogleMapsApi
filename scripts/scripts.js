@@ -82,28 +82,44 @@ function GetCoordinatesFromMap(latLng, map) {
   //   map: map
   // });
   // map.panTo(latLng);
-  console.log("New map marker added, lat: " + latLng.lat() + " lng: " + latLng.lng());
+  console.log("Novo marcador adicionado, lat: " + latLng.lat() + " lng: " + latLng.lng());
   // Insert picked coordinates to form fields
   $("#lat").val(latLng.lat());
+  $("#latEdit").val(latLng.lat());
   $("#lng").val(latLng.lng());
+  $("#lngEdit").val(latLng.lng());
   // Disable coordinatePickingMode
   coordinatePickingMode = false;
   // Reset button state
-  $("#pickFromMapBtn").html("Pick from map");
+  $("#pickFromMapBtn").html("Pingue no Mapa");
+  $("#pickFromMapBtn2").html("Pingue no Mapa");
   $("#map").removeClass("pickingModeActive");
   // Inform user
-  toastr.info('lat: ' + latLng.lat() + ', lng: ' + latLng.lng(), 'Coordinates picked from map!');
+  toastr.info('lat: ' + latLng.lat() + ', lng: ' + latLng.lng(), 'Coordenadas selecionadas no Mapa!');
 }
 
 //We only want to pick coordinates when button is pressed so we handle that with this function for now
 function setPickingMode(){
   if (coordinatePickingMode === false){
     coordinatePickingMode = true;
-    $("#pickFromMapBtn").html("Cancel picking");
+    $("#pickFromMapBtn").html("Cancelar seleção");
     $("#map").addClass("pickingModeActive");
   } else {
     coordinatePickingMode = false;
-    $("#pickFromMapBtn").html("Pick from map");
+    $("#pickFromMapBtn").html("Pingue no Mapa");
+    $("#map").removeClass("pickingModeActive");
+  }
+}
+
+
+function setPickingMode2(){
+  if (coordinatePickingMode === false){
+    coordinatePickingMode = true;
+    $("#pickFromMapBtn2").html("Cancelar seleção");
+    $("#map").addClass("pickingModeActive");
+  } else {
+    coordinatePickingMode = false;
+    $("#pickFromMapBtn2").html("Pingue no Mapa");
     $("#map").removeClass("pickingModeActive");
   }
 }
